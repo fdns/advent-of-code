@@ -1,22 +1,13 @@
-use std::collections::{HashMap, HashSet};
-
 use regex::Regex;
 
 const INPUT: &str = include_str!("input/n13.input");
-type counter = usize;
-const COST_A: counter = 3;
-const COST_B: counter = 1;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-struct Counter {
-    a: counter,
-    b: counter,
-}
+const COST_A: usize = 3;
+const COST_B: usize = 1;
 
 #[derive(Debug, Default, Clone)]
 struct Coord {
-    x: counter,
-    y: counter,
+    x: usize,
+    y: usize,
 }
 
 #[derive(Debug, Default, Clone)]
@@ -106,7 +97,7 @@ fn p2() {
 }
 
 fn math(m: &Machine) -> Option<usize> {
-    let y = (m.prize.y as f64 - (m.prize.x * m.a.y) as f64 / m.a.x as f64);
+    let y = m.prize.y as f64 - (m.prize.x * m.a.y) as f64 / m.a.x as f64;
     let y = y / (m.b.y as f64 - (m.b.x * m.a.y) as f64 / m.a.x as f64);
     let x = (m.prize.x as f64 - y * m.b.x as f64) / m.a.x as f64;
 
