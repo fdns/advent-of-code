@@ -101,14 +101,6 @@ fn sides(region: &Region, map: &Map) -> usize {
     // 1. Find if direction is visible for pos
     // 2. Find all joined pos that have this visible
     // 3. Add to visited set
-    // Return count of visited set
-    // fn visible(pos: &Pos, side: (a, b)) -> bool {
-    //     if let Some(pos) = next_pos(&pos, map, side) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
     for visibility in movement {
         for pos in region {
             // If blocked, continue
