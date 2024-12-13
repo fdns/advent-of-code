@@ -22,11 +22,13 @@ fn input() -> Vec<Machine> {
     let mut state = 0;
 
     let mut current = Machine::default();
+    let rea = Regex::new(r"Button A: X\+(?<x>\d+), Y\+(?<y>\d+)").unwrap();
+    let reb = Regex::new(r"Button B: X\+(?<x>\d+), Y\+(?<y>\d+)").unwrap();
+    let rep = Regex::new(r"Prize: X=(?<x>\d+), Y=(?<y>\d+)").unwrap();
     for line in INPUT.trim().lines() {
         match state {
             0 => {
-                let re = Regex::new(r"Button A: X\+(?<x>\d+), Y\+(?<y>\d+)").unwrap();
-                let result = re.captures(line).expect(line);
+                let result = rea.captures(line).expect(line);
 
                 current = Machine::default();
                 current.a = Coord {
@@ -35,8 +37,7 @@ fn input() -> Vec<Machine> {
                 };
             }
             1 => {
-                let re = Regex::new(r"Button B: X\+(?<x>\d+), Y\+(?<y>\d+)").unwrap();
-                let result = re.captures(line).unwrap();
+                let result = reb.captures(line).unwrap();
 
                 current.b = Coord {
                     x: result.name("x").unwrap().as_str().parse().unwrap(),
@@ -44,8 +45,7 @@ fn input() -> Vec<Machine> {
                 };
             }
             2 => {
-                let re = Regex::new(r"Prize: X=(?<x>\d+), Y=(?<y>\d+)").unwrap();
-                let result = re.captures(line).unwrap();
+                let result = rep.captures(line).unwrap();
 
                 current.prize = Coord {
                     x: result.name("x").unwrap().as_str().parse().unwrap(),
